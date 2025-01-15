@@ -1,0 +1,61 @@
+source,target,edge_width
+Chewbacca,R2-d2,3
+C-3po,R2-d2,17
+Beru,R2-d2,1
+Luke,R2-d2,14
+Owen,R2-d2,1
+Obi-wan,R2-d2,4
+Leia,R2-d2,5
+Biggs,R2-d2,1
+Han,R2-d2,6
+Chewbacca,Obi-wan,4
+C-3po,Chewbacca,4
+Chewbacca,Luke,14
+Chewbacca,Han,19
+Chewbacca,Leia,8
+Camie,Luke,2
+Biggs,Camie,2
+Biggs,Luke,4
+Darth vader,Leia,1
+Beru,Luke,3
+Beru,Owen,3
+Beru,C-3po,2
+Luke,Owen,3
+C-3po,Luke,18
+C-3po,Owen,2
+C-3po,Leia,6
+Leia,Luke,17
+Beru,Leia,1
+Luke,Obi-wan,19
+C-3po,Obi-wan,6
+Leia,Obi-wan,1
+Motti,Tarkin,2
+Darth vader,Motti,1
+Darth vader,Tarkin,7
+Han,Obi-wan,9
+Han,Luke,26
+Greedo,Han,1
+Han,Jabba,1
+C-3po,Han,6
+Leia,Motti,1
+Leia,Tarkin,1
+Han,Leia,13
+Darth vader,Obi-wan,1
+Dodonna,Gold leader,1
+Dodonna,Wedge,1
+Dodonna,Luke,1
+Gold leader,Wedge,1
+Gold leader,Luke,1
+Luke,Wedge,2
+Biggs,Leia,1
+Leia,Red leader,1
+Luke,Red leader,3
+Biggs,Red leader,3
+Biggs,C-3po,1
+C-3po,Red leader,1
+Red leader,Wedge,3
+Gold leader,Red leader,1
+Biggs,Wedge,2
+Red leader,Red ten,1
+Biggs,Gold leader,1
+Luke,Red ten,1
