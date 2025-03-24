@@ -42,3 +42,8 @@ Here's an example of what you can create with this tool:
 <img src="example.png" alt="Example output of nx2dw">
 
 <sub>Data is from [Kaggle: Star Wars Social Network](https://www.kaggle.com/datasets/ruchi798/star-wars)</sub>
+
+## About
+
+This tool was originally created to generate a network for my blog post [Social (and other) networks in Datawrapper](https://www.datawrapper.de/blog/social-networks-datawrapper).
+
