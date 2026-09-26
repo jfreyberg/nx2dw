@@ -39,15 +39,23 @@ class nx2dw:
         self.SCALE_FACTOR = scale_factor
         self.BOUNDARY_PADDING = boundary_padding
 
-    def _get_node_data(self, layout):
-        header_line = "node_id,&nbsp;,&nbsp;&nbsp;\n"  # encode label x and y as empty spaces to avoid showing axis labels
-        node_data = header_line + "\n".join(
-            [
-                f"{node_id.replace(',', '&#44;')},{position[0] * self.SCALE_FACTOR},{position[1] * self.SCALE_FACTOR}"
-                for node_id, position in layout.items()
-            ]
+    def _get_node_data(self, G, layout):
+        node_group = nx.get_node_attributes(G, "node_group")
+
+        header_line = "node_id,&nbsp;,&nbsp;&nbsp;"  # encode label x and y as empty spaces to avoid showing axis labels
+        if node_group:
+            header_line += ",group"
+
+        def get_node_row(node_id, position):
+            row = f"{node_id.replace(',', '&#44;')},{position[0] * self.SCALE_FACTOR},{position[1] * self.SCALE_FACTOR}"
+            if node_group:
+                row += f",{str(node_group.get(node_id, '')).replace(',', '&#44;')}"
+            return row
+
+        node_data = header_line + "\n" + "\n".join(
+            [get_node_row(node_id, position) for node_id, position in layout.items()]
         )
-        return node_data
+        return node_data, bool(node_group)
 
     def _get_edge_data(
         self, G, layout, default_edge_color, default_edge_opacity, default_edge_width
@@ -118,7 +126,7 @@ class nx2dw:
         x_min, x_max = min(x_values), max(x_values)
         y_min, y_max = min(y_values), max(y_values)
 
-        node_data = self._get_node_data(layout)
+        node_data, has_groups = self._get_node_data(G, layout)
 
         edge_data = self._get_edge_data(
             G, layout, default_edge_color, default_edge_opacity, default_edge_width
@@ -132,7 +140,7 @@ class nx2dw:
             "y_max": float(y_max * boundary_scale_factor),
         }
 
-        return node_data, edge_data, boundaries
+        return node_data, has_groups, edge_data, boundaries
 
     def create_datawrapper_graph(
         self,
@@ -147,9 +155,23 @@ class nx2dw:
         default_edge_width=4,
     ):
 
-        node_data, edge_data, boundaries = self._compute_graph_layout_data(
+        node_data, has_groups, edge_data, boundaries = self._compute_graph_layout_data(
             G, layout_algorithm, default_edge_color, default_edge_opacity, default_edge_width
         )
+
+        # node_color is either a single color for all nodes, or a {node_group: color} dict
+        # to color nodes by their "node_group" attribute
+        axes = {"labels": "node_id"}
+        color_settings = {"base-color": node_color}
+        if isinstance(node_color, dict):
+            if not has_groups:
+                raise ValueError("node_color is a dict, but no node has a node_group attribute")
+            axes["color"] = "group"
+            color_settings = {
+                "color-by-column": True,
+                "color-category": {"map": node_color},
+                "show-color-key": True,
+            }
 
         chart_info = self._create_chart(
             title=title,
@@ -176,7 +198,6 @@ class nx2dw:
                     "x-grid-lines": "off",
                     "y-grid-lines": "off",
                     "fixed-size": node_size,
-                    "base-color": node_color,
                     "plotHeightFixed": 600,
                     "tooltip": {
                         "body": "",
@@ -185,8 +206,9 @@ class nx2dw:
                         "enabled": True,
                     },
                     "auto-labels": True,
+                    **color_settings,
                 },
-                "axes": {"labels": "node_id"},
+                "axes": axes,
             },
         )
         return f'https://app.datawrapper.de/edit/{chart_info["id"]}/visualize#annotate'

@@ -11,11 +11,15 @@ starwars_network = pd.read_csv("./starwars.csv")
 
 G = nx.from_pandas_edgelist(starwars_network, "source", "target", edge_attr=True)
 
+# attach a group to every node, nodes are colored by group
+starwars_nodes = pd.read_csv("./starwars_nodes.csv")
+nx.set_node_attributes(G, starwars_nodes.set_index("node_id")["node_group"].to_dict(), "node_group")
+
 chart_url = nx2dw().create_datawrapper_graph(
     G,
     title="The social network of Star Wars IV",
     description="The network shows characters from the original 1977 Star Wars movie, nowadays called Star Wars: Episode IV - A New Hope. Characters who are speaking together within the same scene least once according to the script have an edge between them. Edge thickness increases based on the amount of such scenes.",
-    node_color="#9191E9",
+    node_color={"Rebels": "#faab55", "Empire": "#ff5a5e", "Others": "#9191e9"},
     node_size=16,
     default_edge_color="#C2AFF0",
     default_edge_opacity=0.5,
