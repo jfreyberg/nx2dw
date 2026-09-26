@@ -1,19 +1,41 @@
-from datawrapper import Datawrapper
+import os
+import warnings
+
 import networkx as nx
+import requests
+
+DW_API_URL = "https://api.datawrapper.de/v3"
+
+
+def _from_arg_or_env(value, env_var, required):
+    if value is None:
+        value = os.environ.get(env_var) or None
+    if value is None:
+        message = f"{env_var} was neither passed as an argument nor found in the environment"
+        if required:
+            raise ValueError(message)
+        warnings.warn(f"{message}, continuing without it", stacklevel=3)
+    return value
 
 
 class nx2dw:
     def __init__(
         self,
-        dw_access_token,
+        dw_api_key=None,
         dw_team_id=None,
         dw_folder_id=None,
         scale_factor=1,
         boundary_padding=0.1,
     ):
-        self.dw = Datawrapper(access_token=dw_access_token)
+        dw_api_key = _from_arg_or_env(dw_api_key, "DW_API_KEY", required=True)
+        dw_team_id = _from_arg_or_env(dw_team_id, "DW_TEAM_ID", required=False)
+        dw_folder_id = _from_arg_or_env(dw_folder_id, "DW_FOLDER_ID", required=False)
+
+        self.session = requests.Session()
+        self.session.headers.update({"Authorization": f"Bearer {dw_api_key}"})
         self.TEAM_ID = dw_team_id
-        self.FOLDER_ID = dw_folder_id
+        # env vars are strings, but the API expects a numeric folder id
+        self.FOLDER_ID = int(dw_folder_id) if dw_folder_id is not None else None
         self.SCALE_FACTOR = scale_factor
         self.BOUNDARY_PADDING = boundary_padding
 
@@ -59,6 +81,27 @@ class nx2dw:
             ]
         )
         return edge_data
+
+    def _create_chart(self, title, chart_type, data, metadata):
+        chart = {"title": title, "type": chart_type, "metadata": metadata}
+        if self.TEAM_ID:
+            chart["organizationId"] = self.TEAM_ID
+        if self.FOLDER_ID:
+            chart["folderId"] = self.FOLDER_ID
+
+        response = self.session.post(f"{DW_API_URL}/charts", json=chart, timeout=30)
+        response.raise_for_status()
+        chart_info = response.json()
+
+        response = self.session.put(
+            f"{DW_API_URL}/charts/{chart_info['id']}/data",
+            data=data.encode("utf-8"),
+            headers={"Content-Type": "text/csv"},
+            timeout=30,
+        )
+        response.raise_for_status()
+
+        return chart_info
 
     def _compute_graph_layout_data(
         self,
@@ -108,12 +151,10 @@ class nx2dw:
             G, layout_algorithm, default_edge_color, default_edge_opacity, default_edge_width
         )
 
-        chart_info = self.dw.create_chart(
+        chart_info = self._create_chart(
             title=title,
             chart_type="d3-scatter-plot",
             data=node_data,
-            organization_id=self.TEAM_ID,
-            folder_id=self.FOLDER_ID,
             metadata={
                 "describe": {
                     "intro": description,
