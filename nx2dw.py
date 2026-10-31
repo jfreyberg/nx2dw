@@ -4,6 +4,8 @@ import warnings
 import networkx as nx
 import requests
 
+__version__ = "0.1.0"
+
 DW_API_URL = "https://api.datawrapper.de/v3"
 
 
