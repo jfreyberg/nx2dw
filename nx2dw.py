@@ -132,12 +132,15 @@ class nx2dw:
             G, layout, default_edge_color, default_edge_opacity, default_edge_width
         )
 
-        boundary_scale_factor = (1 + self.BOUNDARY_PADDING) * self.SCALE_FACTOR
+        # pad each side by a share of the layout's extent, so the padding works
+        # regardless of where the layout is positioned (it's not always centered on 0)
+        x_padding = (x_max - x_min) * self.BOUNDARY_PADDING
+        y_padding = (y_max - y_min) * self.BOUNDARY_PADDING
         boundaries = {
-            "x_min": float(x_min * boundary_scale_factor),
-            "x_max": float(x_max * boundary_scale_factor),
-            "y_min": float(y_min * boundary_scale_factor),
-            "y_max": float(y_max * boundary_scale_factor),
+            "x_min": float((x_min - x_padding) * self.SCALE_FACTOR),
+            "x_max": float((x_max + x_padding) * self.SCALE_FACTOR),
+            "y_min": float((y_min - y_padding) * self.SCALE_FACTOR),
+            "y_max": float((y_max + y_padding) * self.SCALE_FACTOR),
         }
 
         return node_data, has_groups, edge_data, boundaries
