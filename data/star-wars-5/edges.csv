@@ -1,0 +1,56 @@
+source,target,edge_width
+Chewbacca,R2-D2,5
+C-3PO,R2-D2,10
+Luke,R2-D2,7
+Han,R2-D2,4
+Leia,R2-D2,5
+Lando,R2-D2,1
+Chewbacca,Han,19
+C-3PO,Chewbacca,21
+Chewbacca,Luke,5
+Chewbacca,Leia,19
+Chewbacca,Rieekan,1
+Chewbacca,Lando,9
+Chewbacca,Darth Vader,1
+Boba Fett,Chewbacca,1
+Han,Luke,4
+Han,Rieekan,3
+Leia,Rieekan,4
+Han,Leia,33
+C-3PO,Han,27
+C-3PO,Derlin,1
+Luke,Obi-Wan,2
+Han,Obi-Wan,1
+Han,Zev,1
+C-3PO,Luke,1
+C-3PO,Leia,23
+Leia,Luke,1
+C-3PO,Rieekan,1
+Ozzel,Piett,2
+Darth Vader,Piett,7
+Darth Vader,Ozzel,2
+Derlin,Leia,1
+Dack,Luke,3
+Luke,Wedge,2
+Janson,Wedge,2
+Luke,Zev,1
+Darth Vader,Needa,1
+Needa,Piett,1
+Darth Vader,Emperor,1
+Luke,Yoda,5
+Boba Fett,Piett,1
+Boba Fett,Darth Vader,3
+Han,Lando,7
+Lando,Leia,10
+C-3PO,Lando,7
+Obi-Wan,Yoda,1
+Darth Vader,Lando,4
+Darth Vader,Han,2
+Boba Fett,Lando,2
+Boba Fett,C-3PO,1
+C-3PO,Darth Vader,1
+Boba Fett,Han,1
+Boba Fett,Leia,1
+Darth Vader,Leia,1
+Darth Vader,Luke,2
+Lando,Luke,2
