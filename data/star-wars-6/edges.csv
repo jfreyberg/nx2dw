@@ -1,0 +1,54 @@
+source,target,edge_width
+Chewbacca,R2-D2,8
+C-3PO,R2-D2,14
+Lando,R2-D2,2
+Jabba,R2-D2,2
+Luke,R2-D2,8
+Han,R2-D2,9
+Leia,R2-D2,12
+Mon Mothma,R2-D2,1
+C-3PO,Chewbacca,13
+Chewbacca,Lando,6
+Chewbacca,Han,20
+Chewbacca,Luke,10
+Chewbacca,Leia,14
+Chewbacca,Mon Mothma,1
+Darth Vader,Jerjerrod,1
+Bib Fortuna,C-3PO,2
+C-3PO,Jabba,3
+C-3PO,Luke,10
+Jabba,Luke,2
+Boushh,Jabba,1
+Boushh,C-3PO,2
+Boushh,Han,1
+Boushh,Leia,1
+Han,Leia,18
+C-3PO,Han,18
+C-3PO,Leia,15
+Bib Fortuna,Luke,1
+Bib Fortuna,Jabba,1
+Han,Luke,13
+Leia,Luke,8
+Lando,Luke,4
+Han,Lando,5
+Lando,Leia,2
+Darth Vader,Emperor,5
+Luke,Yoda,1
+Luke,Obi-Wan,1
+Han,Mon Mothma,1
+Admiral Ackbar,Han,1
+Lando,Mon Mothma,1
+Admiral Ackbar,Lando,5
+C-3PO,Lando,1
+Admiral Ackbar,Mon Mothma,1
+C-3PO,Mon Mothma,1
+Leia,Mon Mothma,1
+Luke,Mon Mothma,1
+Admiral Ackbar,C-3PO,1
+Admiral Ackbar,Leia,1
+Admiral Ackbar,Luke,1
+Darth Vader,Piett,1
+Darth Vader,Luke,5
+Emperor,Luke,3
+Lando,Wedge,6
+Admiral Ackbar,Wedge,1

@@ -41,7 +41,7 @@ Here's an example of what you can create with this tool:
 
 <img src="example.png" alt="Example output of nx2dw">
 
-<sub>Data is from [Kaggle: Star Wars Social Network](https://www.kaggle.com/datasets/ruchi798/star-wars)</sub>
+<sub>Data is from [Evelina Gabasova: Star Wars social networks](https://github.com/evelinag/StarWars-social-network) (CC BY 4.0), see [data/README.md](data/README.md).</sub>
 
 ## About
 
