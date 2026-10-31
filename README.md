@@ -18,10 +18,10 @@ A small utility to visualize [NetworkX](https://networkx.org/) graphs as [Datawr
 3. Initialize the client with your [Datawrapper API token](https://developer.datawrapper.de/docs/getting-started) (chart write rights required):
 
    ```python
-   client = nx2dw(ACCESS_TOKEN, TEAM_ID, FOLDER_ID)
+   client = nx2dw(DW_API_KEY, DW_TEAM_ID, DW_FOLDER_ID)
    ```
-   - Replace ACCESS_TOKEN with your API token.
-   - TEAM_ID and FOLDER_ID are optional parameters for organizing your output.
+   - DW_TEAM_ID and DW_FOLDER_ID are optional parameters for organizing your output.
+   - Any argument you don't pass is read from the environment variable of the same name. Copy `.env.example` to `.env` to set them for `example.py`.
 
 4. Create a visualization from a NetworkX graph:
 
